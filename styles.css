@@ -29,6 +29,11 @@
   .floaty { animation: float 4s ease-in-out infinite; }
   .marquee-track { display: flex; width: max-content; animation: marquee 22s linear infinite; }
 
+  /* Purgatown image logo used in the navigation and footer. */
+  .brand-link { display:inline-flex; align-items:center; flex:0 0 auto; }
+  .brand-logo-nav { display:block; width:clamp(8rem, 23vw, 12rem); height:auto; filter:drop-shadow(0 0 5px #FF00FF) drop-shadow(0 0 9px rgba(57,255,20,.65)); }
+  .brand-logo-footer { display:block; width:min(82vw, 22rem); height:auto; margin:0 auto; filter:drop-shadow(0 0 7px #FF00FF) drop-shadow(0 0 12px rgba(57,255,20,.65)); }
+
   /* CTAs respond to hover with lift, glow, and a quick shine. */
   .cta-interactive { position:relative; isolation:isolate; overflow:hidden; transition:transform .25s ease, box-shadow .25s ease, filter .25s ease; }
   .cta-interactive > span { position:relative; z-index:1; }
