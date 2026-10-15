@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#0a0a0a">
+  <title>Administración · PURGATOWN</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/img/favicon-32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../assets/img/apple-touch-icon.png">
+  <link rel="stylesheet" href="admin.css">
+  <script src="admin.js" type="module"></script>
+</head>
+<body>
+  <!-- Sugerencias: admin -->
+  <main class="admin-shell">
+    <header class="admin-header">
+      <a href="../index.html" class="admin-brand" aria-label="Volver a Purgatown"><img src="../assets/img/Purgatown%20png.png" alt="Purgatown"></a>
+      <p>Revisión de sugerencias</p>
+    </header>
+
+    <section id="loginPanel" class="panel login-panel" aria-labelledby="loginTitle">
+      <h1 id="loginTitle">Panel de administración</h1>
+      <p>Inicia sesión para revisar las canciones sugeridas.</p>
+      <form id="loginForm">
+        <label for="adminPassword">Contraseña</label>
+        <input id="adminPassword" type="password" autocomplete="current-password" required maxlength="256">
+        <button class="button button-green" type="submit">Entrar</button>
+      </form>
+      <p id="loginStatus" class="status" role="status" aria-live="polite"></p>
+    </section>
+
+    <section id="dashboard" class="panel" hidden aria-labelledby="dashboardTitle">
+      <div class="dashboard-heading">
+        <div><h1 id="dashboardTitle">Sugerencias</h1><p>Aprueba cada canción para agregarla a la playlist.</p></div>
+        <button id="logoutButton" class="button button-outline" type="button">Cerrar sesión</button>
+      </div>
+      <nav class="tabs" aria-label="Estado de sugerencias">
+        <button class="tab active" type="button" data-status="pending">Pendientes <span id="count-pending">0</span></button>
+        <button class="tab" type="button" data-status="approved">Aprobadas <span id="count-approved">0</span></button>
+        <button class="tab" type="button" data-status="rejected">Rechazadas <span id="count-rejected">0</span></button>
+      </nav>
+      <p id="dashboardStatus" class="status" role="status" aria-live="polite"></p>
+      <div id="suggestionList" class="suggestion-list" aria-live="polite"></div>
+    </section>
+  </main>
+</body>
+</html>

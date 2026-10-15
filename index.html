@@ -118,8 +118,8 @@
   <div class="max-w-md mx-auto">
     <h2 class="font-display uppercase text-5xl md:text-6xl text-neon glow-pink text-center mb-8 flicker">Gira la ruleta</h2>
     <article class="rounded-2xl border-2 border-neon box-pink p-5 flex flex-col items-center justify-center text-center bg-gradient-to-b from-[#1a001a] to-ink">
-      <h3 class="font-display uppercase text-3xl text-neon glow-pink mb-1">Ruleta de premios</h3>
-      <p class="text-white/60 text-sm uppercase tracking-widest mb-4">Premios sorpresa · se revelan pronto</p>
+      <h3 class="font-display uppercase text-3xl text-neon glow-pink mb-1">Ruleta Misteriosa</h3>
+      <p class="text-white/60 text-sm uppercase tracking-widest mb-4"> Se revelan pronto</p>
 
       <div class="ruleta-stage">
         <div class="ruleta-bloqueada" aria-hidden="true">
@@ -165,6 +165,39 @@
 
     <div id="spotifyPlayer" class="hidden rounded-2xl border-2 border-neon box-pink overflow-hidden bg-black p-2"><div id="spotifyEmbed"></div></div>
     <a id="spotifyLink" class="hidden cta-interactive cta-spotify inline-flex mt-5 px-6 py-3 rounded-full bg-lime text-black font-display uppercase tracking-wider box-lime" target="_blank" rel="noopener noreferrer"><span>Abrir en Spotify</span></a>
+
+    <!-- Sugerencias: frontend -->
+    <section class="song-suggestions" aria-labelledby="suggestionTitle">
+      <h3 id="suggestionTitle">¿Qué quieres escuchar?</h3>
+      <p class="suggestion-subtitle">Sugiere una canción para el 31 de octubre</p>
+      <label class="suggestion-label" for="songSearch">Busca una canción o artista</label>
+      <div class="suggestion-search-wrap">
+        <input id="songSearch" class="suggestion-input" type="search" minlength="2" maxlength="100" autocomplete="off" role="combobox" aria-autocomplete="list" aria-controls="songResults" aria-expanded="false" placeholder="Nombre de canción o artista">
+        <div id="songResults" class="suggestion-results" role="listbox" aria-label="Resultados de Spotify" hidden></div>
+      </div>
+      <p id="searchStatus" class="suggestion-status" role="status" aria-live="polite"></p>
+
+      <form id="suggestionForm" class="suggestion-form" hidden>
+        <article class="selected-track" aria-live="polite">
+          <img id="selectedImage" class="selected-cover" alt="">
+          <div class="selected-track-copy">
+            <strong id="selectedTitle"></strong>
+            <span id="selectedArtists"></span>
+            <span id="selectedDuration"></span>
+          </div>
+          <a id="selectedSpotifyLink" class="spotify-attribution" target="_blank" rel="noopener noreferrer">Abrir en Spotify</a>
+        </article>
+        <label class="suggestion-label" for="requesterName">Tu nombre (opcional)</label>
+        <input id="requesterName" class="suggestion-input" type="text" maxlength="30" autocomplete="name" placeholder="¿Cómo te llamas?">
+        <small class="suggestion-help">Solo lo usamos para identificar tu sugerencia durante la revisión.</small>
+        <div id="turnstileWidget" class="turnstile-widget"></div>
+        <label class="suggestion-honeypot" aria-hidden="true">Deja este campo vacío<input id="website" name="website" type="text" tabindex="-1" autocomplete="off"></label>
+        <button id="submitSuggestion" class="suggestion-submit" type="submit" disabled>Enviar sugerencia</button>
+      </form>
+      <p class="suggestion-notice">Sugerir no garantiza que suene. Todas las sugerencias pasan por revisión.</p>
+      <p id="suggestionStatus" class="suggestion-status" role="status" aria-live="polite"></p>
+    </section>
+
     <div id="trackList" class="hidden mt-5 rounded-2xl border-2 border-neon box-pink overflow-hidden bg-gradient-to-b from-[#1a001a] to-ink"></div>
 
   </div>
@@ -215,6 +248,7 @@
 </footer>
 
 <script src="script.js" defer></script>
+<script src="suggestions.js" defer></script>
 </body>
 </html>
 
