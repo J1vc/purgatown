@@ -28,7 +28,8 @@
     // Spotify's iFrame API reports play/pause state for the embedded playlist.
     window.onSpotifyIframeApiReady = IFrameAPI => {
       IFrameAPI.createController(spotifyEmbed, {
-        uri: `spotify:playlist:${id}`,
+        // La URL con parámetro único fuerza una instancia nueva del embed al cargar la página.
+        url: `https://open.spotify.com/playlist/${encodeURIComponent(id)}?embed_cache=${Date.now()}`,
         width: '100%',
         height: 352
       }, controller => {
