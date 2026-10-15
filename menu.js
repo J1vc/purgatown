@@ -1,25 +1,25 @@
-// Edita aquí nombres, descripciones y precios. Mantén [descripcion] hasta tener el texto aprobado.
+// Edita aquí los nombres y precios de la carta.
     const PRONTO = 'Próximamente';
     const carta = [
       { id:'bebidas', titulo:'Bebidas', color:'bebidas', grupos:[
         { titulo:'Cervezas', items:[
-          { n:'Costeña Verde', d:'[descripcion]', p:PRONTO },
-          { n:'Budweiser', d:'[descripcion]', p:PRONTO },
-          { n:'Cubetazo Costeña Verde', d:'[descripcion]', p:PRONTO },
-          { n:'Cubetazo Budweiser', d:'[descripcion]', p:PRONTO }
+          { n:'Costeña Verde', p:PRONTO },
+          { n:'Budweiser', p:PRONTO },
+          { n:'Cubetazo Costeña Verde', p:PRONTO },
+          { n:'Cubetazo Budweiser', p:PRONTO }
         ]},
         { titulo:'Tragos', items:[
-          { n:'Aguardiente', d:'[descripcion]', p:PRONTO },
-          { n:'Smirnoff', d:'[descripcion]', p:PRONTO }
+          { n:'Aguardiente', p:PRONTO },
+          { n:'Smirnoff', p:PRONTO }
         ]},
         { titulo:'Sin alcohol', items:[
-          { n:'Gaseosas', d:'[descripcion]', p:PRONTO },
-          { n:'Agua', d:'[descripcion]', p:PRONTO },
-          { n:'Electrolit', d:'[descripcion]', p:PRONTO }
+          { n:'Gaseosas', p:PRONTO },
+          { n:'Agua', p:PRONTO },
+          { n:'Electrolit', p:PRONTO }
         ]}
       ]},
       { id:'comidas', titulo:'Comidas', color:'comidas', grupos:[
-        { titulo:'', items:[ { n:'Picadas Silv Grill', d:'[descripcion]', p:PRONTO } ] }
+        { titulo:'', items:[ { n:'Picadas Silv Grill', p:PRONTO } ] }
       ]}
     ];
     const main = document.getElementById('carta');
@@ -37,7 +37,7 @@
         }
         group.items.forEach(item => {
           const article = document.createElement('article'); article.className = 'item';
-          article.innerHTML = `<div class="row"><span class="name"></span><span class="dots" aria-hidden="true"></span><span class="price"></span></div><p class="desc"></p>`;
+          article.innerHTML = `<div class="row"><span class="name"></span><span class="dots" aria-hidden="true"></span><span class="price"></span></div>`;
           article.querySelector('.name').textContent = item.n;
           // Próximamente: etiqueta Pronto. Un precio real sigue usando el formato habitual.
           const price = article.querySelector('.price');
@@ -47,7 +47,6 @@
           } else {
             price.textContent = item.p;
           }
-          article.querySelector('.desc').textContent = item.d;
           section.appendChild(article);
         });
       });

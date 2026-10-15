@@ -48,7 +48,6 @@
       10%,14%,60%,62% { opacity:.15; box-shadow:none; text-shadow:none; }
       63% { opacity:.5; box-shadow:none; text-shadow:none; }
     }
-    .desc { margin:.28rem 0 0; color:var(--muted); font-size:1rem; }
     footer { border-top:2px solid rgba(255,0,255,.55); padding:1.8rem 1rem calc(2.5rem + env(safe-area-inset-bottom,0px)); text-align:center; }
     footer .plus { color:var(--lime); font:1.35rem Anton,Impact,sans-serif; letter-spacing:.08em; }
     footer p { max-width:34rem; margin:.55rem auto 0; color:#c6c6c6; font-size:.86rem; }
@@ -59,7 +58,7 @@
       .chips { display:none; }
       .hero { padding-top:1rem; }
       .logo,.category h2,.name,.eyebrow,footer .plus { text-shadow:none; }
-      .meta,.desc,.price,footer p { color:#333; }
+      .meta,.price,footer p { color:#333; }
       .item { border-color:#999; }
       main { padding-bottom:1rem; }
     }
