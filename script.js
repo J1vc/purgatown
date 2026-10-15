@@ -73,10 +73,9 @@
   mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => toggleMenu(false)));
 
   /* ---------- Ruleta ---------- */
-  const prizes = [
-    '2x1 en trago', 'Entrada gratis', 'Shot gratis', 'Sigue intentando',
-    'Antifaz neón', 'Foto VIP', 'Trago gratis', 'Mejor suerte'
-  ];
+  // Cuando se definan los premios, reemplaza estos signos de pregunta por la lista real.
+  // Para reactivarla: quita .ruleta-bloqueada y el panel de cuenta regresiva, y habilita la mecánica del botón.
+  const prizes = Array(8).fill('?');
   const wheel = document.getElementById('wheel');
   const cx = 150, cy = 150, r = 140, n = prizes.length, seg = 360 / n;
   const fills = ['#FF00FF', '#0a0a0a', '#39FF14', '#0a0a0a'];
@@ -99,36 +98,42 @@
 
     const mid = a0 + seg / 2;
     const text = document.createElementNS(NS, 'text');
-    text.setAttribute('x', cx + 34);
-    text.setAttribute('y', cy);
-    text.setAttribute('dy', '.35em');
-    text.setAttribute('text-anchor', 'start');
+    text.setAttribute('x', cx);
+    text.setAttribute('y', cy - 92);
+    text.setAttribute('text-anchor', 'middle');
+    text.setAttribute('dominant-baseline', 'central');
     text.setAttribute('font-family', 'Anton, Impact, sans-serif');
-    text.setAttribute('font-size', '12');
-    text.setAttribute('letter-spacing', '.4');
+    text.setAttribute('font-size', '40');
     text.setAttribute('fill', textFill[i % textFill.length]);
-    text.setAttribute('transform', `rotate(${mid - 90} ${cx} ${cy})`);
-    text.textContent = label.toUpperCase();
+    text.setAttribute('transform', `rotate(${mid} ${cx} ${cy})`);
+    text.textContent = label;
     wheel.appendChild(text);
   });
 
-  let rotation = 0, spinning = false;
-  const spinBtn = document.getElementById('spinBtn');
-  const result = document.getElementById('result');
+  /* ---------- Cuenta regresiva ---------- */
+  // Edita aquí la fecha del evento. El offset -05:00 fija la hora de Colombia.
+  const EVENTO = new Date('2026-10-31T20:00:00-05:00');
+  const cdLabel = document.getElementById('cdLabel');
+  const countdownInterval = { id: null };
+  const formatCountdown = value => String(value).padStart(2, '0');
 
-  function spin() {
-    if (spinning) return;
-    spinning = true;
-    spinBtn.disabled = true;
-    result.textContent = '';
-    rotation += 360 * 5 + Math.floor(Math.random() * 360);
-    wheel.style.transform = `rotate(${rotation}deg)`;
-    setTimeout(() => {
-      const angle = rotation % 360;
-      const idx = Math.floor(((360 - angle) % 360) / seg);
-      result.textContent = '🎉 ' + prizes[idx] + ' 🎉';
-      spinning = false;
-      spinBtn.disabled = false;
-    }, 5200);
+  function tickCountdown() {
+    const remaining = Math.max(0, EVENTO.getTime() - Date.now());
+    const days = Math.floor(remaining / 86400000);
+    const hours = Math.floor((remaining % 86400000) / 3600000);
+    const minutes = Math.floor((remaining % 3600000) / 60000);
+    const seconds = Math.floor((remaining % 60000) / 1000);
+
+    document.getElementById('cdD').textContent = formatCountdown(days);
+    document.getElementById('cdH').textContent = formatCountdown(hours);
+    document.getElementById('cdM').textContent = formatCountdown(minutes);
+    document.getElementById('cdS').textContent = formatCountdown(seconds);
+
+    if (remaining === 0) {
+      cdLabel.textContent = '¡Ya empezó la fiesta!';
+      if (countdownInterval.id !== null) clearInterval(countdownInterval.id);
+    }
   }
-  spinBtn.addEventListener('click', spin);
+
+  tickCountdown();
+  if (Date.now() < EVENTO.getTime()) countdownInterval.id = setInterval(tickCountdown, 1000);

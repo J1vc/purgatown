@@ -26,6 +26,28 @@
     .category.comidas .name { color:var(--lime); }
     .dots { flex:1; min-width:.5rem; border-bottom:2px dotted rgba(255,255,255,.35); transform:translateY(-4px); }
     .price { color:#ddd; font: .9rem Anton,Impact,sans-serif; white-space:nowrap; }
+    /* Próximamente: etiqueta Pronto */
+    .pronto-tag {
+      flex:0 0 auto;
+      --tag-rgb:57,255,20;
+      color:var(--lime);
+      border:1.5px solid var(--lime);
+      border-radius:999px;
+      padding:.15rem .75rem;
+      box-shadow:0 0 8px rgba(var(--tag-rgb),.6);
+      font: .85rem Anton,Impact,sans-serif;
+      letter-spacing:.15em;
+      text-transform:uppercase;
+      white-space:nowrap;
+      text-shadow:0 0 6px currentColor;
+      animation:prontoFlicker 5s linear infinite;
+    }
+    .category.bebidas .pronto-tag { --tag-rgb:255,0,255; color:var(--pink); border-color:var(--pink); }
+    @keyframes prontoFlicker {
+      0%,8%,12%,16%,58%,61%,64%,100% { opacity:1; box-shadow:0 0 8px currentColor; text-shadow:0 0 6px currentColor; }
+      10%,14%,60%,62% { opacity:.15; box-shadow:none; text-shadow:none; }
+      63% { opacity:.5; box-shadow:none; text-shadow:none; }
+    }
     .desc { margin:.28rem 0 0; color:var(--muted); font-size:1rem; }
     footer { border-top:2px solid rgba(255,0,255,.55); padding:1.8rem 1rem calc(2.5rem + env(safe-area-inset-bottom,0px)); text-align:center; }
     footer .plus { color:var(--lime); font:1.35rem Anton,Impact,sans-serif; letter-spacing:.08em; }
@@ -42,3 +64,70 @@
       main { padding-bottom:1rem; }
     }
     @media (prefers-reduced-motion:reduce) { *,*::before,*::after { scroll-behavior:auto !important; animation:none !important; transition:none !important; } }
+
+    /* Próximamente: aviso */
+    .aviso {
+      background:linear-gradient(90deg,var(--pink),#D900FF);
+      color:#000;
+      text-align:center;
+      padding:.6rem .75rem;
+      font-family:Anton,Impact,sans-serif;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      font-size:.9rem;
+      display:flex;
+      flex-wrap:wrap;
+      gap:.5rem 1rem;
+      align-items:center;
+      justify-content:center;
+    }
+    .aviso a {
+      background:var(--bg);
+      color:var(--lime);
+      border:2px solid var(--lime);
+      border-radius:999px;
+      padding:.2rem .95rem;
+      text-decoration:none;
+      box-shadow:0 0 10px rgba(57,255,20,.6);
+      white-space:nowrap;
+      transition:background .2s,color .2s;
+    }
+    .aviso a:hover { background:var(--lime); color:#000; }
+
+    /* Próximamente: cintas */
+    .cintas { position:relative; isolation:isolate; height:130px; overflow:hidden; margin:.2rem 0 .6rem; }
+    .cinta {
+      position:absolute;
+      left:-6%;
+      width:112%;
+      top:50%;
+      overflow:hidden;
+      white-space:nowrap;
+      padding:.35rem 0;
+      font-family:Anton,Impact,sans-serif;
+      text-transform:uppercase;
+      letter-spacing:.15em;
+      font-size:1.2rem;
+      color:#000;
+      border-style:solid;
+      border-width:8px 0;
+    }
+    .cinta.a {
+      z-index:1;
+      background:var(--lime);
+      transform:translateY(-50%) rotate(-3deg);
+      border-image:repeating-linear-gradient(-45deg,var(--bg) 0 12px,var(--lime) 12px 24px) 8 0;
+      box-shadow:0 0 18px rgba(57,255,20,.55);
+    }
+    .cinta.b {
+      z-index:0;
+      background:var(--pink);
+      transform:translateY(-50%) rotate(3deg);
+      border-image:repeating-linear-gradient(-45deg,var(--bg) 0 12px,var(--pink) 12px 24px) 8 0;
+      box-shadow:0 0 18px rgba(255,0,255,.55);
+    }
+    .cinta .track { display:inline-block; animation:cintaMove 28s linear infinite; }
+    .cinta.b .track { animation-direction:reverse; }
+    @keyframes cintaMove { from { transform:translateX(0); } to { transform:translateX(-50%); } }
+    @media (prefers-reduced-motion:reduce) { .cinta .track,.pronto-tag { animation:none; } }
+    @media print { .aviso,.cintas { display:none; } }

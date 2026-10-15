@@ -39,12 +39,24 @@
           const article = document.createElement('article'); article.className = 'item';
           article.innerHTML = `<div class="row"><span class="name"></span><span class="dots" aria-hidden="true"></span><span class="price"></span></div><p class="desc"></p>`;
           article.querySelector('.name').textContent = item.n;
-          article.querySelector('.price').textContent = item.p;
+          // Próximamente: etiqueta Pronto. Un precio real sigue usando el formato habitual.
+          const price = article.querySelector('.price');
+          if (item.p === PRONTO) {
+            price.className = 'pronto-tag';
+            price.textContent = 'Pronto';
+          } else {
+            price.textContent = item.p;
+          }
           article.querySelector('.desc').textContent = item.d;
           section.appendChild(article);
         });
       });
       main.appendChild(section);
+    });
+    // Próximamente: parpadeo al azar de las etiquetas Pronto
+    document.querySelectorAll('.pronto-tag').forEach(tag => {
+      tag.style.animationDuration = `${(3 + Math.random() * 5).toFixed(2)}s`;
+      tag.style.animationDelay = `-${(Math.random() * 8).toFixed(2)}s`;
     });
     // Resalta la categoría visible y mantiene su enlace a la vista en móvil.
     const links = [...chips.querySelectorAll('a')];

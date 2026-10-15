@@ -84,8 +84,19 @@
   @media (min-width: 1024px) { .masonry { columns: 3; } }
   .masonry > * { break-inside: avoid; margin-bottom: 1rem; }
 
-  /* ---------- Ruleta ---------- */
-  #wheel { transition: transform 5s cubic-bezier(.12,.67,.1,1); transform-origin: 150px 150px; }
+  /* ---------- Ruleta bloqueada ---------- */
+  @keyframes wheelIdle { to { transform: rotate(360deg); } }
+  #wheel { animation: wheelIdle 40s linear infinite; transform-origin: 150px 150px; }
+  .ruleta-stage { position:relative; width:min(100%, 300px); margin-inline:auto; }
+  .ruleta-bloqueada { position:relative; filter:blur(2.5px) saturate(.35) brightness(.6); pointer-events:none; user-select:none; }
+  .countdown-panel { position:absolute; inset:0; z-index:20; display:flex; align-items:center; justify-content:center; }
+  .countdown-card { width:94%; padding:.9rem .7rem 1rem; border:2px solid #FF00FF; border-radius:1rem; background:rgba(10,10,10,.8); backdrop-filter:blur(8px); box-shadow:0 0 14px rgba(255,0,255,.75), inset 0 0 14px rgba(255,0,255,.2); }
+  .countdown-title { margin:0; color:#FF00FF; font:clamp(1.7rem, 8vw, 2.25rem)/1.05 'Pirata One', Impact, sans-serif; text-shadow:0 0 6px #FF00FF, 0 0 18px #D900FF; }
+  .countdown-label { margin:.5rem 0 .65rem; color:rgba(255,255,255,.6); font:.68rem Oswald, Arial, sans-serif; letter-spacing:.1em; text-transform:uppercase; }
+  .cd-timer { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:.35rem; }
+  .cd-unit { display:flex; flex-direction:column; align-items:center; gap:.05rem; min-width:0; }
+  .cd-unit span { color:#39FF14; font:clamp(1.35rem, 6vw, 1.8rem)/1 Anton, Impact, sans-serif; text-shadow:0 0 7px #39FF14, 0 0 16px rgba(57,255,20,.8); font-variant-numeric:tabular-nums; }
+  .cd-unit small { color:rgba(255,255,255,.75); font: .58rem Oswald, Arial, sans-serif; letter-spacing:.08em; text-transform:uppercase; }
 
   /* ---------- Playlist ---------- */
   @keyframes eq { 0%,100% { transform: scaleY(.25); } 50% { transform: scaleY(1); } }
@@ -114,6 +125,12 @@
 .wheel-section { background: radial-gradient(ellipse at 50% 0%, rgba(255,0,255,.25), transparent 60%), #0a0a0a; }
 .playlist-section { background: radial-gradient(ellipse at 90% 0%, rgba(57,255,20,.14), transparent 55%), #0a0a0a; }
 .gallery-section { background: linear-gradient(180deg, #0a0a0a, #120014 50%, #0a0a0a); }
+.gallery-photo .photo { filter:none; }
+.gallery-photo::before,
+.gallery-photo::after { display:none; }
+.gallery-one .photo { --img:url("assets/galeria/831761858_18100285913222942_3198938706405027089_n.webp"); }
+.gallery-two .photo { --img:url("assets/galeria/836940102_18100285904222942_2321090673721439352_n.webp"); }
+.gallery-three .photo { --img:url("assets/galeria/844630213_18102241415222942_7016207140464518439_n.webp"); }
 .wheel-pointer { position:absolute; left:50%; top:-.5rem; z-index:10; width:0; height:0; transform:translateX(-50%); border-left:14px solid transparent; border-right:14px solid transparent; border-top:26px solid #39FF14; filter:drop-shadow(0 0 8px #39FF14); }
 .safe-footer { padding-bottom:calc(2.5rem + env(safe-area-inset-bottom, 0px)); }
 :focus-visible { outline:3px solid #39FF14; outline-offset:4px; }

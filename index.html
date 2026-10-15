@@ -90,19 +90,19 @@
     <article class="photo-wrap dj-card dj-dozza duo-mix rounded-2xl border-2 border-neon box-pink aspect-[4/5]">
       <div class="photo"></div>
       <div class="overlay bottom-4 left-4 right-4">
-        <p class="uppercase tracking-widest text-sm text-white/80">DJ · 31 Oct · 8PM</p>
+        <p class="uppercase tracking-widest text-sm text-white/80">10PM - 11PM</p>
       </div>
     </article>
     <article class="photo-wrap dj-card dj-morex duo-mix rounded-2xl border-2 border-neon box-pink aspect-[4/5]">
       <div class="photo"></div>
       <div class="overlay bottom-4 left-4 right-4">
-        <p class="uppercase tracking-widest text-sm text-white/80">DJ · 31 Oct · 8PM</p>
+        <p class="uppercase tracking-widest text-sm text-white/80">11PM - 1AM</p>
       </div>
     </article>
     <article class="photo-wrap dj-card dj-jiv duo-mix rounded-2xl border-2 border-neon box-pink aspect-[4/5]">
       <div class="photo"></div>
       <div class="overlay bottom-4 left-4 right-4">
-        <p class="uppercase tracking-widest text-sm text-white/80">DJ · 31 Oct · 8PM</p>
+        <p class="uppercase tracking-widest text-sm text-white/80">8PM - 10PM / 1AM - 2AM</p>
       </div>
     </article>
   </div>
@@ -114,22 +114,37 @@
     <h2 class="font-display uppercase text-5xl md:text-6xl text-neon glow-pink text-center mb-8 flicker">Gira la ruleta</h2>
     <article class="rounded-2xl border-2 border-neon box-pink p-5 flex flex-col items-center justify-center text-center bg-gradient-to-b from-[#1a001a] to-ink">
       <h3 class="font-display uppercase text-3xl text-neon glow-pink mb-1">Ruleta de premios</h3>
-      <p class="text-white/60 text-sm uppercase tracking-widest mb-4">Gira y descubre tu premio</p>
+      <p class="text-white/60 text-sm uppercase tracking-widest mb-4">Premios sorpresa · se revelan pronto</p>
 
-      <div class="relative w-full max-w-[300px]">
-        <!-- puntero -->
-        <div class="absolute left-1/2 -translate-x-1/2 -top-2 z-10 w-0 h-0 wheel-pointer"></div>
-        <svg viewBox="0 0 300 300" class="w-full h-auto" role="img" aria-label="Ruleta de premios">
-          <g id="wheel"></g>
-          <circle cx="150" cy="150" r="22" fill="#0a0a0a" stroke="#39FF14" stroke-width="4"/>
-          <circle cx="150" cy="150" r="8" fill="#39FF14"/>
-        </svg>
+      <div class="ruleta-stage">
+        <div class="ruleta-bloqueada" aria-hidden="true">
+          <div class="relative w-full max-w-[300px]">
+            <div class="absolute left-1/2 -translate-x-1/2 -top-2 z-10 w-0 h-0 wheel-pointer"></div>
+            <svg viewBox="0 0 300 300" class="w-full h-auto" role="presentation">
+              <g id="wheel"></g>
+              <circle cx="150" cy="150" r="22" fill="#0a0a0a" stroke="#39FF14" stroke-width="4"/>
+              <circle cx="150" cy="150" r="8" fill="#39FF14"/>
+            </svg>
+          </div>
+        </div>
+        <div class="countdown-panel">
+          <div class="countdown-card">
+            <h4 class="countdown-title flicker">Próximamente</h4>
+            <p id="cdLabel" class="countdown-label">La ruleta se activa en</p>
+            <div class="cd-timer" role="timer" aria-label="Cuenta regresiva hasta la activación de la ruleta">
+              <div class="cd-unit"><span id="cdD">00</span><small>Días</small></div>
+              <div class="cd-unit"><span id="cdH">00</span><small>Horas</small></div>
+              <div class="cd-unit"><span id="cdM">00</span><small>Min</small></div>
+              <div class="cd-unit"><span id="cdS">00</span><small>Seg</small></div>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <button id="spinBtn" class="mt-5 bg-lime text-black font-display uppercase tracking-wider text-xl px-8 py-3 rounded-full box-lime hover:scale-105 transition disabled:opacity-50 disabled:hover:scale-100">
-        Girar
+      <button type="button" disabled class="mt-5 bg-lime text-black font-display uppercase tracking-wider text-xl px-8 py-3 rounded-full box-lime opacity-40 cursor-not-allowed">
+        Muy pronto
       </button>
-      <p id="result" class="mt-4 min-h-[2.5rem] font-display uppercase text-xl text-neon glow-pink" aria-live="polite"></p>
+      <p class="mt-4 font-display uppercase text-xl text-neon glow-pink">31 de octubre · 8:00 PM</p>
     </article>
   </div>
 </section>
@@ -159,31 +174,17 @@
     </div>
 
     <div class="masonry">
-      <div class="photo-wrap duo-pink rounded-xl border border-neon/60 aspect-[3/4]">
-        <div class="photo"></div>
+      <div class="photo-wrap gallery-photo gallery-one rounded-xl border border-neon/60 aspect-[3/4]">
+        <div class="photo" role="img" aria-label="Dos asistentes en una fiesta Purgatown"></div>
         <span class="overlay bottom-3 left-3 font-display text-4xl text-white glow-pink uppercase">Purgatown</span>
       </div>
-      <div class="photo-wrap duo-lime rounded-xl border border-lime/60 aspect-square">
-        <div class="photo"></div>
-        <span class="overlay top-3 left-3 font-display text-3xl text-lime glow-lime uppercase leading-none">Purgatown<br>Purgatown</span>
-        
+      <div class="photo-wrap gallery-photo gallery-two rounded-xl border border-neon/60 aspect-[3/4]">
+        <div class="photo" role="img" aria-label="Asistente con disfraz en una fiesta Purgatown"></div>
+        <span class="overlay top-3 left-3 font-display text-3xl text-white glow-pink uppercase leading-none">Halloween Party</span>
       </div>
-      <div class="photo-wrap duo-pink rounded-xl border border-neon/60 aspect-[4/3]">
-        <div class="photo"></div>
-        <span class="overlay inset-x-3 top-3 font-display text-3xl uppercase text-white glow-pink">Halloween Party</span>
-      </div>
-      <div class="photo-wrap duo-lime rounded-xl border border-lime/60 aspect-[3/4]">
-        <div class="photo"></div>
-        <span class="overlay bottom-3 left-3 font-display text-3xl text-lime glow-lime uppercase">Mejor disfraz</span>
-      </div>
-      <div class="photo-wrap duo-mix rounded-xl border border-neon/60 aspect-square">
-        <div class="photo"></div>
-        
-        <span class="overlay bottom-3 left-3 font-display text-4xl text-white glow-pink uppercase">Purgatown</span>
-      </div>
-      <div class="photo-wrap duo-lime rounded-xl border border-lime/60 aspect-[4/3]">
-        <div class="photo"></div>
-        <span class="overlay top-3 left-3 font-display text-3xl text-lime glow-lime uppercase leading-none">Nightlife</span>
+      <div class="photo-wrap gallery-photo gallery-three rounded-xl border border-neon/60 aspect-[3/4]">
+        <div class="photo" role="img" aria-label="Asistentes compartiendo una bebida en Purgatown"></div>
+        <span class="overlay bottom-3 left-3 font-display text-3xl text-white glow-pink uppercase">Nightlife</span>
       </div>
     </div>
   </div>
