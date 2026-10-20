@@ -3,4 +3,5 @@ node_modules/
 .env
 .env.*
 !.env.example
+maps-config.js
 *.log

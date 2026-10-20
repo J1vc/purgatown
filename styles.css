@@ -178,8 +178,9 @@
 .where-title { margin:0 0 2.5rem; text-align:center; }
 .where-grid { display:grid; grid-template-columns:minmax(0,1fr); align-items:stretch; gap:1.25rem; }
 .where-card { order:1; display:flex; flex-direction:column; align-items:center; justify-content:center; min-width:0; padding:clamp(1.25rem,4vw,2.5rem); border:2px solid #39FF14; border-radius:1.25rem; background:linear-gradient(145deg,#021a00,#0a0a0a 72%); box-shadow:0 0 18px rgba(57,255,20,.5),inset 0 0 18px rgba(57,255,20,.16); text-align:center; }
-.where-eyebrow { margin:0; color:#39FF14; font:1rem Anton,Impact,sans-serif; letter-spacing:.22em; text-transform:uppercase; }
-.where-venue { margin:.7rem 0 1rem; color:#FF00FF; font:clamp(2.5rem,8vw,3.5rem)/1.05 'Pirata One',Impact,serif; text-shadow:0 0 8px #FF00FF,0 0 22px rgba(217,0,255,.8); }
+.where-eyebrow { align-self:stretch; margin:0; color:#39FF14; font:1rem Anton,Impact,sans-serif; letter-spacing:.22em; text-align:left; text-transform:uppercase; }
+.where-venue { align-self:stretch; width:min(100%,30rem); height:clamp(8rem,24vw,11rem); margin:.7rem 0 1rem; overflow:hidden; text-align:left; }
+.where-venue-logo { display:block; width:112%; max-width:none; height:100%; object-fit:cover; object-position:center 50%; transform:translateX(-12.4%); }
 .where-address { margin:0; color:rgba(255,255,255,.82); font:clamp(.92rem,2.5vw,1.05rem)/1.6 Oswald,Arial,sans-serif; letter-spacing:.09em; text-transform:uppercase; }
 .where-date { margin:1.1rem 0 .85rem; color:#39FF14; font:1.2rem Anton,Impact,sans-serif; letter-spacing:.07em; text-shadow:0 0 8px rgba(57,255,20,.8); }
 .where-age { display:inline-flex; align-items:center; min-height:32px; padding:.25rem .8rem; border:1px solid #FF00FF; border-radius:999px; color:#fff; font:.82rem Anton,Impact,sans-serif; letter-spacing:.12em; text-transform:uppercase; box-shadow:0 0 10px rgba(255,0,255,.35); }
@@ -194,20 +195,9 @@
 .copy-address-status[data-error="true"] { color:#ff8acb; }
 .where-map-column { order:0; position:relative; min-width:0; }
 .mapbox { position:relative; height:min(62vh,480px); min-height:360px; overflow:hidden; border:2px solid #FF00FF; border-radius:1rem; background:#07070a; box-shadow:0 0 22px rgba(255,0,255,.6),inset 0 0 18px rgba(255,0,255,.25); }
-#eventMap { position:absolute; inset:0; z-index:0; background:transparent; }
-.map-tint { position:absolute; z-index:450; inset:0; pointer-events:none; mix-blend-mode:screen; background:linear-gradient(135deg,rgba(255,0,255,.12),rgba(57,255,20,.07)); }
-.mapbox .leaflet-container { background:transparent; font-family:Oswald,Arial,sans-serif; }
-.mapbox .leaflet-control-zoom { border:0; box-shadow:none; }
-.mapbox .leaflet-control-zoom a { display:grid; place-items:center; width:44px; height:44px; margin-bottom:.35rem; border:1px solid #39FF14; border-radius:.55rem; background:rgba(10,10,10,.88); color:#39FF14; box-shadow:0 0 12px rgba(57,255,20,.45); font:700 1.6rem/1 Arial,sans-serif; }
-.mapbox .leaflet-control-zoom a:hover { background:#39FF14; color:#000; }
-.mapbox .leaflet-control-attribution { margin:0 .35rem .35rem 0; padding:.2rem .4rem; border:1px solid rgba(255,255,255,.15); border-radius:.35rem; background:rgba(7,7,10,.82); color:#ddd; font-size:.68rem; }
-.mapbox .leaflet-control-attribution a { color:#c9ffb9; }
-.event-marker { position:relative; width:44px; height:44px; }
-.event-marker .dot,.event-marker .radar { position:absolute; left:50%; top:50%; width:16px; height:16px; margin:-8px 0 0 -8px; border-radius:50%; }
-.event-marker .dot { z-index:2; background:#39FF14; box-shadow:0 0 12px #39FF14,0 0 28px #39FF14; }
-.event-marker .radar { border:2px solid #39FF14; opacity:0; animation:where-radar 2.4s ease-out infinite; }
-.event-marker .radar.r2 { border-color:#FF00FF; animation-delay:1.2s; }
-@keyframes where-radar { 0% { transform:scale(1); opacity:.9; } 100% { transform:scale(4.2); opacity:0; } }
+#eventMap { position:absolute; inset:0; z-index:0; width:100%; height:100%; border:0; background:#07070a; }
+.mapbox #eventMapFallback { position:absolute; inset:0; z-index:1; width:100%; height:100%; border:0; background:#07070a; }
+.mapbox #eventMapFallback[hidden] { display:none; }
 @media (min-width:1024px) {
   .where-grid { grid-template-columns:repeat(5,minmax(0,1fr)); gap:1.5rem; }
   .where-card { order:0; grid-column:span 2; align-items:flex-start; text-align:left; }
@@ -218,7 +208,6 @@
   .where-section { padding-inline:.75rem; }
   .btn-map,.btn-copy-address { padding-inline:.65rem; font-size:.88rem; letter-spacing:.035em; }
 }
-@media (prefers-reduced-motion:reduce) { .event-marker .radar { animation:none; } }
 
 /* Page-specific treatments moved out of HTML attributes. */
 .safe-navbar { padding-top: env(safe-area-inset-top, 0px); }

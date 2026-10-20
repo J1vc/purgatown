@@ -5,6 +5,9 @@
   "engines": {
     "node": ">=20.5"
   },
+  "scripts": {
+    "build": "node scripts/build-maps-config.mjs"
+  },
   "dependencies": {
     "@netlify/blobs": "^10.5.0"
   }

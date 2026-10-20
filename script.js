@@ -176,28 +176,70 @@
 
   copyAddressButton?.addEventListener('click', copyEventAddress);
 
+  // Use Google Maps JavaScript API when a restricted browser key is configured.
+  // Keep the shared Google Maps iframe visible if the API key is missing or fails.
   const mapElement = document.getElementById('eventMap');
-  if (mapElement && window.L) {
-    // Coordenadas verificadas en Google Maps para La Esquina de Abajo.
-    const UBICACION = [10.9887017, -74.7816287];
-    const CARTO_API_KEY = 'cb1_4pfs_1_0f26f9037d8c89e22c63589';
-    const map = L.map(mapElement, { center: UBICACION, zoom: 16, scrollWheelZoom: false, zoomControl: false });
-    L.tileLayer(`https://basemaps.cartocdn.com/rastertiles/dark_all/{z}/{x}/{y}{r}.png?key=${encodeURIComponent(CARTO_API_KEY)}`, {
-      maxZoom: 19,
-      attribution: '&copy; OpenStreetMap contributors &copy; CARTO'
-    }).addTo(map);
-    L.control.zoom({ position: 'topright' }).addTo(map);
+  const mapFallback = document.getElementById('eventMapFallback');
+  const googleMapsKey = window.PURGATOWN_GOOGLE_MAPS_API_KEY;
 
-    const eventIcon = L.divIcon({
-      className: 'event-marker-wrap',
-      html: '<span class="event-marker"><span class="radar"></span><span class="radar r2"></span><span class="dot"></span></span>',
-      iconSize: [44, 44],
-      iconAnchor: [22, 22]
-    });
-    L.marker(UBICACION, { icon: eventIcon, title: 'La Esquina de Abajo' }).addTo(map);
+  if (mapElement && googleMapsKey) {
+    window.initPurgatownMap = () => {
+      const location = { lat: 10.9887017, lng: -74.7816287 };
+      const map = new google.maps.Map(mapElement, {
+        center: location,
+        zoom: 17,
+        mapTypeControl: false,
+        streetViewControl: false,
+        fullscreenControl: false,
+        clickableIcons: true,
+        styles: [
+          // Keep Google's dark map and nearby-place labels, but make the roads
+          // quiet enough that the Purgatown frame and venue pin stay in focus.
+          { elementType: 'geometry', stylers: [{ color: '#11131a' }] },
+          { elementType: 'labels.text.fill', stylers: [{ color: '#ded9e5' }] },
+          { elementType: 'labels.text.stroke', stylers: [{ color: '#11131a' }] },
+          { featureType: 'administrative', elementType: 'geometry.stroke', stylers: [{ color: '#34323e' }] },
+          { featureType: 'administrative', elementType: 'labels.text.fill', stylers: [{ color: '#aaa5b3' }] },
+          { featureType: 'landscape', elementType: 'geometry', stylers: [{ color: '#11131a' }] },
+          { featureType: 'landscape.man_made', elementType: 'geometry', stylers: [{ color: '#191a23' }] },
+          { featureType: 'poi', elementType: 'geometry', stylers: [{ color: '#1e2029' }] },
+          { featureType: 'poi', elementType: 'labels.text.fill', stylers: [{ color: '#c8c1d0' }] },
+          { featureType: 'poi.business', elementType: 'labels', stylers: [{ visibility: 'on' }] },
+          { featureType: 'poi.park', elementType: 'geometry', stylers: [{ color: '#14251f' }] },
+          { featureType: 'poi.park', elementType: 'labels.text.fill', stylers: [{ color: '#91c9a5' }] },
+          { featureType: 'road', elementType: 'geometry', stylers: [{ color: '#282a34' }] },
+          { featureType: 'road', elementType: 'labels.text.fill', stylers: [{ color: '#b9b5c1' }] },
+          { featureType: 'road.arterial', elementType: 'geometry.fill', stylers: [{ color: '#302f39' }] },
+          { featureType: 'road.arterial', elementType: 'geometry.stroke', stylers: [{ color: '#373641' }] },
+          { featureType: 'road.highway', elementType: 'geometry.fill', stylers: [{ color: '#35323c' }] },
+          { featureType: 'road.highway', elementType: 'geometry.stroke', stylers: [{ color: '#403b46' }] },
+          { featureType: 'transit', elementType: 'geometry', stylers: [{ color: '#302d39' }] },
+          { featureType: 'transit.station', elementType: 'labels.text.fill', stylers: [{ color: '#c0b7c9' }] },
+          { featureType: 'water', elementType: 'geometry', stylers: [{ color: '#0d1a28' }] }
+        ]
+      });
 
-    map.on('click', () => map.scrollWheelZoom.enable());
-    map.getContainer().addEventListener('mouseleave', () => map.scrollWheelZoom.disable());
-    window.addEventListener('resize', () => map.invalidateSize());
-    window.requestAnimationFrame(() => map.invalidateSize());
+      new google.maps.Marker({
+        map,
+        position: location,
+        title: 'La Esquina de Abajo',
+        icon: {
+          url: 'assets/img/purgatown-map-pin.svg',
+          scaledSize: new google.maps.Size(38, 46),
+          anchor: new google.maps.Point(19, 44)
+        },
+        zIndex: 1000
+      });
+
+      google.maps.event.addListenerOnce(map, 'tilesloaded', () => {
+        if (mapFallback) mapFallback.hidden = true;
+      });
+    };
+
+    const mapsApi = document.createElement('script');
+    mapsApi.src = `https://maps.googleapis.com/maps/api/js?key=${encodeURIComponent(googleMapsKey)}&callback=initPurgatownMap&loading=async&v=weekly`;
+    mapsApi.async = true;
+    mapsApi.onerror = () => console.error('No se pudo cargar Google Maps; se mantiene el mapa de respaldo.');
+    document.head.appendChild(mapsApi);
   }
+

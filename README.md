@@ -29,6 +29,12 @@ Sitio estático en HTML, CSS y JavaScript. El formulario de canciones sugeridas 
 
 En Cloudflare crea un widget Turnstile y agrega el dominio del sitio (para local, usa las claves de prueba de Cloudflare). El `TURNSTILE_SITE_KEY` es público y la función `/api/config` lo entrega al navegador; `TURNSTILE_SECRET_KEY` permanece en Netlify y valida cada token en el servidor. Un token se acepta una sola vez y vence a los cinco minutos.
 
+## Google Maps
+
+El mapa usa Google Maps JavaScript API con una paleta oscura/neón y mantiene los puntos de interés de Google. Crea una clave de navegador en Google Cloud, habilita **Maps JavaScript API** y la facturación, y restringe la clave a esa API y al dominio `https://purgatown.netlify.app/*` (agrega el origen local si lo necesitas). La clave se expone al navegador y no debe tratarse como secreto; las restricciones de sitio web y API son obligatorias para proteger su uso.
+
+En Netlify define `GOOGLE_MAPS_API_KEY` con alcance **Builds**. El build genera `maps-config.js`; si no hay clave configurada, el sitio conserva el iframe de Google Maps como respaldo. Para local, agrega la clave a `.env` y ejecuta `npm run build` antes de abrir la página.
+
 ## Configuración en Netlify
 
 En **Project configuration → Environment variables**, configura estas variables en el contexto **Functions** para producción (y para Deploy Previews si vas a probar allí):
@@ -43,6 +49,7 @@ En **Project configuration → Environment variables**, configura estas variable
 | `SESSION_SECRET` | Secreto aleatorio de al menos 32 caracteres para firmar sesiones |
 | `TURNSTILE_SITE_KEY` | Clave pública del widget, servida por `/api/config` |
 | `TURNSTILE_SECRET_KEY` | Secreto de validación de Turnstile |
+| `GOOGLE_MAPS_API_KEY` | Clave pública restringida para Maps JavaScript API; se usa durante el build |
 | `IP_HASH_SALT` | Sal aleatoria larga; solo se guarda el hash SHA-256 de la IP |
 | `SITE_ORIGIN` | Origen exacto, por ejemplo `https://tu-sitio.netlify.app` sin ruta |
 | `ALLOW_EXPLICIT` | `true` permite explícitas y las marca; `false` las rechaza |
@@ -52,7 +59,7 @@ En **Project configuration → Environment variables**, configura estas variable
 
 Puedes generar secretos con un administrador de contraseñas o con `node -e "console.log(require('node:crypto').randomBytes(32).toString('base64url'))"` en una terminal local. No uses el mismo valor para `SESSION_SECRET` e `IP_HASH_SALT`.
 
-Cuando cambies variables de entorno, crea un deploy nuevo para que las funciones reciban esos valores.
+Cuando cambies variables de entorno, crea un deploy nuevo para que las funciones y el mapa reciban esos valores.
 
 ## Instalación y despliegue
 

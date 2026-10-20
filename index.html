@@ -13,7 +13,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@400;600;700&family=Pirata+One&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com/3.4.17"></script>
 <script src="tailwind.config.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body class="font-body">
@@ -116,7 +115,7 @@
     <div class="where-grid">
       <article class="where-card">
         <p class="where-eyebrow">Ubicación del evento</p>
-        <h3 class="where-venue">La Esquina de Abajo</h3>
+        <h3 class="where-venue"><img class="where-venue-logo" src="assets/img/La%20Esquina%20de%20Abajo_Logo%20IG.png" alt="La Esquina de Abajo"></h3>
         <p class="where-address">Cl. 41 #46-257, Nte. Centro Histórico,<br> Barranquilla, Atlántico</p>
         <p class="where-date">31 de octubre · 8:00 PM</p>
         <span class="where-age">Evento +18</span>
@@ -135,8 +134,15 @@
       </article>
       <div class="where-map-column">
         <div class="mapbox">
-          <div id="eventMap" role="application" aria-label="Mapa: La Esquina de Abajo, Barranquilla"></div>
-          <div class="map-tint" aria-hidden="true"></div>
+          <div id="eventMap" role="application" aria-label="Mapa interactivo de Google Maps con lugares cercanos a La Esquina de Abajo"></div>
+          <iframe
+            id="eventMapFallback"
+            title="Mapa de Google Maps: La Esquina de Abajo, Barranquilla"
+            src="https://maps.google.com/maps?q=10.9887017%2C-74.7816287&amp;z=16&amp;output=embed"
+            loading="lazy"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen>
+          </iframe>
         </div>
       </div>
     </div>
@@ -277,7 +283,7 @@
   <p class="mt-10 text-white/40 text-xs uppercase tracking-widest">© 2026 Purgatown. Todos los derechos reservados. · Bebe con responsabilidad.</p>
 </footer>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js" defer></script>
+<script src="maps-config.js" defer></script>
 <script src="script.js" defer></script>
 <script src="suggestions.js" defer></script>
 </body>
