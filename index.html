@@ -13,6 +13,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@400;600;700&family=Pirata+One&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com/3.4.17"></script>
 <script src="tailwind.config.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body class="font-body">
@@ -105,6 +106,40 @@
         <p class="uppercase tracking-widest text-sm text-white/80">12:30AM</p>
       </div>
     </article>
+  </div>
+</section>
+
+<!-- ================= DÓNDE ES ================= -->
+<section id="donde" class="where-section">
+  <div class="where-container">
+    <h2 class="font-display uppercase text-5xl md:text-7xl text-lime glow-lime where-title">Dónde es</h2>
+    <div class="where-grid">
+      <article class="where-card">
+        <p class="where-eyebrow">Ubicación del evento</p>
+        <h3 class="where-venue">La Esquina de Abajo</h3>
+        <p class="where-address">Cl. 41 #46-257, Nte. Centro Histórico,<br> Barranquilla, Atlántico</p>
+        <p class="where-date">31 de octubre · 8:00 PM</p>
+        <span class="where-age">Evento +18</span>
+        <div class="where-actions">
+          <a class="btn-map" href="https://www.google.com/maps/dir/?api=1&amp;destination=La%20Esquina%20de%20Abajo%2C%20Cl.%2041%20%2346-257%2C%20Barranquilla%2C%20Atl%C3%A1ntico" target="_blank" rel="noopener noreferrer">
+            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg>
+            <span>Cómo llegar · Google Maps</span>
+          </a>
+          <a class="btn-map" href="https://waze.com/ul?q=La%20Esquina%20de%20Abajo%2C%20Cl.%2041%20%2346-257%2C%20Barranquilla%2C%20Atl%C3%A1ntico&amp;navigate=yes" target="_blank" rel="noopener noreferrer">
+            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg>
+            <span>Cómo llegar · Waze</span>
+          </a>
+          <button class="btn-copy-address" id="copyEventAddress" type="button">Copiar dirección</button>
+          <p class="copy-address-status" id="copyAddressStatus" aria-live="polite"></p>
+        </div>
+      </article>
+      <div class="where-map-column">
+        <div class="mapbox">
+          <div id="eventMap" role="application" aria-label="Mapa: La Esquina de Abajo, Barranquilla"></div>
+          <div class="map-tint" aria-hidden="true"></div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -242,6 +277,7 @@
   <p class="mt-10 text-white/40 text-xs uppercase tracking-widest">© 2026 Purgatown. Todos los derechos reservados. · Bebe con responsabilidad.</p>
 </footer>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js" defer></script>
 <script src="script.js" defer></script>
 <script src="suggestions.js" defer></script>
 </body>

@@ -137,3 +137,67 @@
 
   tickCountdown();
   if (Date.now() < EVENTO.getTime()) countdownInterval.id = setInterval(tickCountdown, 1000);
+
+  // Dónde es
+  const ADDRESS_TO_COPY = 'La Esquina de Abajo, Cl. 41 #46-257, Nte. Centro Histórico, Barranquilla, Atlántico';
+  const copyAddressButton = document.getElementById('copyEventAddress');
+  const copyAddressStatus = document.getElementById('copyAddressStatus');
+  let copyStatusTimeout;
+
+  async function copyEventAddress() {
+    let copied = false;
+    try {
+      if (!navigator.clipboard?.writeText) throw new Error('Clipboard API no disponible');
+      await navigator.clipboard.writeText(ADDRESS_TO_COPY);
+      copied = true;
+    } catch {
+      try {
+        const textarea = document.createElement('textarea');
+        textarea.value = ADDRESS_TO_COPY;
+        textarea.setAttribute('readonly', '');
+        textarea.style.position = 'fixed';
+        textarea.style.opacity = '0';
+        document.body.appendChild(textarea);
+        textarea.select();
+        copied = document.execCommand('copy');
+        textarea.remove();
+      } catch {
+        copied = false;
+      }
+    }
+    copyAddressStatus.textContent = copied ? 'Dirección copiada' : 'No se pudo copiar';
+    copyAddressStatus.dataset.error = String(!copied);
+    window.clearTimeout(copyStatusTimeout);
+    copyStatusTimeout = window.setTimeout(() => {
+      copyAddressStatus.textContent = '';
+      delete copyAddressStatus.dataset.error;
+    }, 2500);
+  }
+
+  copyAddressButton?.addEventListener('click', copyEventAddress);
+
+  const mapElement = document.getElementById('eventMap');
+  if (mapElement && window.L) {
+    // Coordenadas verificadas en Google Maps para La Esquina de Abajo.
+    const UBICACION = [10.9887017, -74.7816287];
+    const CARTO_API_KEY = 'cb1_4pfs_1_0f26f9037d8c89e22c63589';
+    const map = L.map(mapElement, { center: UBICACION, zoom: 16, scrollWheelZoom: false, zoomControl: false });
+    L.tileLayer(`https://basemaps.cartocdn.com/rastertiles/dark_all/{z}/{x}/{y}{r}.png?key=${encodeURIComponent(CARTO_API_KEY)}`, {
+      maxZoom: 19,
+      attribution: '&copy; OpenStreetMap contributors &copy; CARTO'
+    }).addTo(map);
+    L.control.zoom({ position: 'topright' }).addTo(map);
+
+    const eventIcon = L.divIcon({
+      className: 'event-marker-wrap',
+      html: '<span class="event-marker"><span class="radar"></span><span class="radar r2"></span><span class="dot"></span></span>',
+      iconSize: [44, 44],
+      iconAnchor: [22, 22]
+    });
+    L.marker(UBICACION, { icon: eventIcon, title: 'La Esquina de Abajo' }).addTo(map);
+
+    map.on('click', () => map.scrollWheelZoom.enable());
+    map.getContainer().addEventListener('mouseleave', () => map.scrollWheelZoom.disable());
+    window.addEventListener('resize', () => map.invalidateSize());
+    window.requestAnimationFrame(() => map.invalidateSize());
+  }
