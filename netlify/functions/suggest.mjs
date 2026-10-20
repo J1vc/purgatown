@@ -3,7 +3,7 @@ import { randomUUID } from 'node:crypto';
 import { json, errorResponse, HttpError, readJson, requireMethod, requireOrigin } from './_shared/http.mjs';
 import { getTrackById } from './_shared/spotify.mjs';
 import { clientIp, env, hashIp } from './_shared/security.mjs';
-import { checkRateLimit, getJson, setJson, suggestions, tracksIndex, withLock } from './_shared/store.mjs';
+import { checkRateLimit, getJson, setJson, getSuggestionsStore, getTracksIndexStore, withLock } from './_shared/store.mjs';
 
 async function verifyTurnstile(token) {
   const secret = env('TURNSTILE_SECRET_KEY');
@@ -27,6 +27,8 @@ export default async (request, context) => {
   const wrongMethod = requireMethod(request, 'POST');
   if (wrongMethod) return wrongMethod;
   try {
+    const suggestions = getSuggestionsStore();
+    const tracksIndex = getTracksIndexStore();
     requireOrigin(request);
     const body = await readJson(request);
     const trackId = typeof body.trackId === 'string' ? body.trackId.trim() : '';

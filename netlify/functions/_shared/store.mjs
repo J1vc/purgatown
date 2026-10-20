@@ -2,9 +2,10 @@
 import { randomUUID } from 'node:crypto';
 import { getStore } from '@netlify/blobs';
 
-export const suggestions = getStore({ name: 'suggestions', consistency: 'strong' });
-export const tracksIndex = getStore({ name: 'tracks-index', consistency: 'strong' });
-export const rateLimits = getStore({ name: 'rate-limits', consistency: 'strong' });
+// Resolve stores at request time so each function invocation uses Netlify's current credentials.
+export const getSuggestionsStore = () => getStore({ name: 'suggestions', consistency: 'strong' });
+export const getTracksIndexStore = () => getStore({ name: 'tracks-index', consistency: 'strong' });
+const getRateLimitsStore = () => getStore({ name: 'rate-limits', consistency: 'strong' });
 
 const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -46,6 +47,7 @@ export async function setJson(store, key, value) {
 }
 
 export async function checkRateLimit(key, { max, windowMs, now = Date.now() }) {
+  const rateLimits = getRateLimitsStore();
   const locked = await withLock(rateLimits, 'rate:mutation-lock', async () => {
     const record = await getJson(rateLimits, key);
     const active = record && Number(record.expires_at) > now;

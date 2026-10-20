@@ -1,11 +1,13 @@
 /* Sugerencias: backend */
 import { json, errorResponse, HttpError, readJson, requireMethod, requireOrigin } from './_shared/http.mjs';
 import { requireAdmin } from './_shared/security.mjs';
-import { getJson, setJson, suggestions, tracksIndex, withLock } from './_shared/store.mjs';
+import { getJson, setJson, getSuggestionsStore, getTracksIndexStore, withLock } from './_shared/store.mjs';
 
 export default async request => {
   try {
     requireAdmin(request);
+    const suggestions = getSuggestionsStore();
+    const tracksIndex = getTracksIndexStore();
     const wrongMethod = requireMethod(request, 'POST');
     if (wrongMethod) return wrongMethod;
     requireOrigin(request);

@@ -1,11 +1,12 @@
 /* Sugerencias: backend */
 import { json, errorResponse, HttpError, requireMethod } from './_shared/http.mjs';
 import { requireAdmin } from './_shared/security.mjs';
-import { suggestions } from './_shared/store.mjs';
+import { getSuggestionsStore } from './_shared/store.mjs';
 
 export default async request => {
   try {
     requireAdmin(request);
+    const suggestions = getSuggestionsStore();
     const wrongMethod = requireMethod(request, 'GET');
     if (wrongMethod) return wrongMethod;
     const status = new URL(request.url).searchParams.get('status') || 'pending';
