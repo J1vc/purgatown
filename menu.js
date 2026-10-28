@@ -5,8 +5,8 @@
         { titulo:'Cervezas', items:[
           { n:'Costeña Verde', d:'Costeña Verde Lata 330ml', p:'$10.000' },
           { n:'Budweiser', d:'Budweiser Lata 269ml', p: '$10.000' },
-          { n:'Cubetazo Costeña Verde', d:'6 latas Costeña Verde en cubeta con hielo', p:'$50.000' },
-          { n:'Cubetazo Budweiser', d:'6 latas Budweiser en cubeta con hielo', p:'$50.000' }
+          { n:'Cubetazo Costeña Verde', d:'6 latas Costeña Verde en cubeta con hielo', p:'$45.000' },
+          { n:'Cubetazo Budweiser', d:'6 latas Budweiser en cubeta con hielo', p:'$45.000' }
         ]},
         { titulo:'Tragos', items:[
           { n:'Aguardiente Tapa Verde', d:'Tetra Pack Aguardiente Tapa Verde 1.050ml', p:'$140.000' },
