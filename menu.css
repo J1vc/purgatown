@@ -12,10 +12,18 @@
     .eyebrow { color:var(--lime); text-shadow:0 0 12px var(--lime); letter-spacing:.3em; margin:.55rem 0 0; }
     .tagline { margin:1rem 0 0; font-size:clamp(1.1rem,4vw,1.5rem); }
     .meta { margin:.5rem 0 0; color:var(--muted); text-transform:uppercase; letter-spacing:.12em; font-size:.82rem; }
-    .chips { position:sticky; top:0; z-index:5; display:flex; gap:.65rem; overflow-x:auto; padding:.65rem .8rem; padding-top:calc(.65rem + env(safe-area-inset-top,0px)); background:rgba(10,10,10,.94); border-block:1px solid rgba(255,0,255,.45); backdrop-filter:blur(10px); scrollbar-width:none; }
+    .lema { display:flex; align-items:center; gap:1rem; max-width:760px; margin:.6rem auto 1rem; padding:0 1.1rem; text-align:center; font-family:Anton,Impact,sans-serif; text-transform:uppercase; letter-spacing:.18em; font-size:1rem; color:var(--lime); text-shadow:0 0 6px var(--lime),0 0 18px rgba(57,255,20,.6); }
+    .lema::before,.lema::after { content:""; flex:1; height:2px; background:linear-gradient(90deg,transparent,var(--pink)); }
+    .lema::after { background:linear-gradient(270deg,transparent,var(--pink)); }
+    .chips-bar { position:sticky; top:0; z-index:10; display:flex; align-items:center; justify-content:center; gap:.6rem; padding:.6rem .75rem; padding-top:calc(.6rem + env(safe-area-inset-top,0px)); background:rgba(10,10,10,.92); backdrop-filter:blur(6px); border-bottom:1px solid rgba(255,0,255,.4); }
+    .chips { display:flex; gap:.5rem; overflow-x:auto; scrollbar-width:none; min-width:0; }
     .chips::-webkit-scrollbar { display:none; }
-    .chips a { flex:0 0 auto; padding:.4rem 1.1rem; border:1px solid var(--pink); border-radius:999px; color:var(--pink); text-decoration:none; font:1rem Anton,Impact,sans-serif; text-transform:uppercase; letter-spacing:.07em; }
+    .chips a,.chips-bar .back { flex:0 0 auto; text-decoration:none; white-space:nowrap; font-family:Anton,Impact,sans-serif; text-transform:uppercase; letter-spacing:.06em; font-size:.95rem; padding:.35rem .9rem; border-radius:999px; color:var(--pink); border:1.5px solid var(--pink); }
     .chips a.active { background:var(--pink); color:#000; box-shadow:0 0 16px rgba(255,0,255,.75); }
+    .chips-bar .back { color:var(--lime); border-color:var(--lime); }
+    .chips-bar .back:hover,.chips-bar .back:focus-visible { background:var(--lime); color:#000; }
+    .back .short { display:none; }
+    @media (max-width:430px) { .back .long { display:none; } .back .short { display:inline; } }
     main { width:min(100% - 2rem,760px); margin:0 auto; padding:.7rem 0 3.5rem; }
     .category { padding:2.1rem 0 1rem; }
     .category h2 { margin:0; color:var(--lime); font:clamp(2.7rem,10vw,3.7rem)/1 'Pirata One',Impact,serif; text-shadow:0 0 10px rgba(57,255,20,.75); }
@@ -27,7 +35,8 @@
     .name { color:var(--pink); font:clamp(1.12rem,4.6vw,1.35rem) Anton,Impact,sans-serif; text-transform:uppercase; }
     .category.comidas .name { color:var(--lime); }
     .dots { flex:1; min-width:.5rem; border-bottom:2px dotted rgba(255,255,255,.35); transform:translateY(-4px); }
-    .price { color:#ddd; font: .9rem Anton,Impact,sans-serif; white-space:nowrap; }
+    .price { font-family:Anton,Impact,sans-serif; font-size:1.45rem; letter-spacing:.02em; color:var(--lime); text-shadow:0 0 8px rgba(57,255,20,.55); white-space:nowrap; }
+    .description { margin:.35rem 0 0; color:rgba(255,255,255,.68); font:.9rem Oswald,sans-serif; }
     /* Próximamente: etiqueta Pronto */
     .pronto-tag {
       flex:0 0 auto;
@@ -57,7 +66,7 @@
     @media print {
       :root { color-scheme:light; }
       body { color:#111; background:#fff; background-image:none; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
-      .chips { display:none; }
+      .chips-bar { display:none; }
       .hero { padding-top:1rem; }
       .logo,.category h2,.name,.eyebrow,footer .plus { text-shadow:none; }
       .meta,.price,footer p { color:#333; }
@@ -66,69 +75,3 @@
     }
     @media (prefers-reduced-motion:reduce) { *,*::before,*::after { scroll-behavior:auto !important; animation:none !important; transition:none !important; } }
 
-    /* Próximamente: aviso */
-    .aviso {
-      background:linear-gradient(90deg,var(--pink),#D900FF);
-      color:#000;
-      text-align:center;
-      padding:.6rem .75rem;
-      font-family:Anton,Impact,sans-serif;
-      text-transform:uppercase;
-      letter-spacing:.08em;
-      font-size:.9rem;
-      display:flex;
-      flex-wrap:wrap;
-      gap:.5rem 1rem;
-      align-items:center;
-      justify-content:center;
-    }
-    .aviso a {
-      background:var(--bg);
-      color:var(--lime);
-      border:2px solid var(--lime);
-      border-radius:999px;
-      padding:.2rem .95rem;
-      text-decoration:none;
-      box-shadow:0 0 10px rgba(57,255,20,.6);
-      white-space:nowrap;
-      transition:background .2s,color .2s;
-    }
-    .aviso a:hover { background:var(--lime); color:#000; }
-
-    /* Próximamente: cintas */
-    .cintas { position:relative; isolation:isolate; height:130px; overflow:hidden; margin:.2rem 0 .6rem; }
-    .cinta {
-      position:absolute;
-      left:-6%;
-      width:112%;
-      top:50%;
-      overflow:hidden;
-      white-space:nowrap;
-      padding:.35rem 0;
-      font-family:Anton,Impact,sans-serif;
-      text-transform:uppercase;
-      letter-spacing:.15em;
-      font-size:1.2rem;
-      color:#000;
-      border-style:solid;
-      border-width:8px 0;
-    }
-    .cinta.a {
-      z-index:1;
-      background:var(--lime);
-      transform:translateY(-50%) rotate(-3deg);
-      border-image:repeating-linear-gradient(-45deg,var(--bg) 0 12px,var(--lime) 12px 24px) 8 0;
-      box-shadow:0 0 18px rgba(57,255,20,.55);
-    }
-    .cinta.b {
-      z-index:0;
-      background:var(--pink);
-      transform:translateY(-50%) rotate(3deg);
-      border-image:repeating-linear-gradient(-45deg,var(--bg) 0 12px,var(--pink) 12px 24px) 8 0;
-      box-shadow:0 0 18px rgba(255,0,255,.55);
-    }
-    .cinta .track { display:inline-block; animation:cintaMove 28s linear infinite; }
-    .cinta.b .track { animation-direction:reverse; }
-    @keyframes cintaMove { from { transform:translateX(0); } to { transform:translateX(-50%); } }
-    @media (prefers-reduced-motion:reduce) { .cinta .track,.pronto-tag { animation:none; } }
-    @media print { .aviso,.cintas { display:none; } }

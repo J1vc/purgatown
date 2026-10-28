@@ -3,23 +3,25 @@
     const carta = [
       { id:'bebidas', titulo:'Bebidas', color:'bebidas', grupos:[
         { titulo:'Cervezas', items:[
-          { n:'Costeña Verde', p:PRONTO },
-          { n:'Budweiser', p:PRONTO },
-          { n:'Cubetazo Costeña Verde', p:PRONTO },
-          { n:'Cubetazo Budweiser', p:PRONTO }
+          { n:'Costeña Verde', d:'Costeña Verde Lata 330ml', p:'$10.000' },
+          { n:'Budweiser', d:'Budweiser Lata 269ml', p: '$9.000' },
+          { n:'Cubetazo Costeña Verde', d:'6 latas Costeña Verde en cubeta con hielo', p:'$50.000' },
+          { n:'Cubetazo Budweiser', d:'6 latas Budweiser en cubeta con hielo', p:'$45.000' }
         ]},
         { titulo:'Tragos', items:[
-          { n:'Aguardiente', p:PRONTO },
-          { n:'Smirnoff', p:PRONTO }
+          { n:'Aguardiente Tapa Verde', d:'Tetra Pack Aguardiente Tapa Verde 1.050ml', p:'$140.000' },
+          { n:'Smirnoff Spicy Tamarindo', d:'Tetra Pack Spicy Tamarindo 1.000ml', p:'$120.000' }
         ]},
         { titulo:'Sin alcohol', items:[
-          { n:'Gaseosas', p:PRONTO },
-          { n:'Agua', p:PRONTO },
-          { n:'Electrolit', p:PRONTO }
+          { n:'Gaseosas', p:'$8.000' },
+          { n:'Agua', p:'$4.000' }
         ]}
       ]},
       { id:'comidas', titulo:'Comidas', color:'comidas', grupos:[
-        { titulo:'', items:[ { n:'Picadas Silv Grill', p:PRONTO } ] }
+        { titulo:'', items:[
+          { n:'Picadas Silv Grill', d:'Picadas de chorizo, bollo, chimichurri de la casa y salsas parrilleras', p:'$15.000' },
+          { n:'Promoción X5 picadas', d:'5 Picadas de chorizo, bollo, chimichurri de la casa y salsas parrilleras', p:'$65.000' }
+        ] }
       ]}
     ];
     const main = document.getElementById('carta');
@@ -37,8 +39,11 @@
         }
         group.items.forEach(item => {
           const article = document.createElement('article'); article.className = 'item';
-          article.innerHTML = `<div class="row"><span class="name"></span><span class="dots" aria-hidden="true"></span><span class="price"></span></div>`;
+          article.innerHTML = `<div class="row"><span class="name"></span><span class="dots" aria-hidden="true"></span><span class="price"></span></div><p class="description"></p>`;
           article.querySelector('.name').textContent = item.n;
+          const description = article.querySelector('.description');
+          if (item.d) description.textContent = item.d;
+          else description.remove();
           // Próximamente: etiqueta Pronto. Un precio real sigue usando el formato habitual.
           const price = article.querySelector('.price');
           if (item.p === PRONTO) {
