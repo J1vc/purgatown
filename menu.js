@@ -3,21 +3,23 @@
     const carta = [
       { id:'bebidas', titulo:'Bebidas', color:'bebidas', grupos:[
         { titulo:'Cervezas', items:[
-          { n:'Costeña Verde', d:'Costeña Verde Lata 330ml', p:'$10.000' },
-          { n:'Budweiser', d:'Budweiser Lata 330ml', p: '$10.000' },
-          { n:'Corona', d:'Corona Lata 330ml', p: '$12.000' },
-          { n:'Cubetazo Costeña Verde', d:'6 latas Costeña Verde en cubeta con hielo', p:'$50.000' },
-          { n:'Cubetazo Budweiser', d:'6 latas Budweiser en cubeta con hielo', p:'$50.000' },
-          { n:'Cubetazo Corona', d:'6 latas Corona en cubeta con hielo', p:'$60.000' }
+          { n:'Costeña Chevere', d:'', p:'$8.000' },
+          { n:'Aguila Negra', d:'', p: '$8.000' },
+          { n:'Coronita', d:'', p: '$10.000' },
+          { n:'Cubetazo Costeña Chevere', d:'6 botellas Costeña Chevere en cubeta con hielo', p:'$40.000' },
+          { n:'Cubetazo Aguila Negra', d:'6 botellas Aguila Negra en cubeta con hielo', p:'$40.000' },
+          { n:'Cubetazo Coronita', d:'6 botellas Coronita en cubeta con hielo', p:'$55.000' }
         ]},
         { titulo:'Tragos', items:[
-          { n:'Aguardiente Tapa Verde', d:'Tetra Pack Aguardiente Tapa Verde 1.050ml', p:'$140.000' },
-          { n:'Smirnoff Spicy Tamarindo', d:'Tetra Pack Spicy Tamarindo 1.000ml', p:'$120.000' }
+          { n:'Panchita Aguardiente Tapa Verde', d:'Botella de Aguerdiente Tapa Verde 330ml', p:'$45.000' },
+          { n:'Panchita Medellin', d:'Botella de Ron Medellin 330ml', p:'$45.000' },
+          { n:'Smirnoff Spicy Tamarindo', d:'Botella Spicy Tamarindo 1.000ml', p:'$120.000' },
+          { n:'Aguardiente Tapa Verde', d:'Tetra pack Aguardiente Tapa Verde 1.050ml', p:'$140.000' },
         ]},
         { titulo:'Sin alcohol', items:[
           { n:'Gaseosas', p:'$8.000', d:'Gaseosas postobon 400ml' },
-          { n:'Agua grande', p:'$4.000' },
-          { n:'Agua pequeña', p:'$2.000' }
+          { n:'Agua grande', p:'$5.000' },
+          { n:'Agua pequeña', p:'$3.000' }
         ]}
       ]},
       { id:'comidas', titulo:'Comidas', color:'comidas', grupos:[

@@ -155,10 +155,10 @@
     <h2 class="font-display uppercase text-5xl md:text-6xl text-neon glow-pink text-center mb-8 flicker">Gira la ruleta</h2>
     <article class="rounded-2xl border-2 border-neon box-pink p-5 flex flex-col items-center justify-center text-center bg-gradient-to-b from-[#1a001a] to-ink">
       <h3 class="font-display uppercase text-3xl text-neon glow-pink mb-1">Ruleta Misteriosa</h3>
-      <p class="text-white/60 text-sm uppercase tracking-widest mb-4"> Se revelan pronto</p>
+      <p class="text-white/60 text-sm uppercase tracking-widest mb-4">¡Prueba tu suerte!</p>
 
       <div class="ruleta-stage">
-        <div class="ruleta-bloqueada" aria-hidden="true">
+        <div class="ruleta-wheel">
           <div class="relative w-full max-w-[300px]">
             <div class="absolute left-1/2 -translate-x-1/2 -top-2 z-10 w-0 h-0 wheel-pointer"></div>
             <svg viewBox="0 0 300 300" class="w-full h-auto" role="presentation">
@@ -168,23 +168,12 @@
             </svg>
           </div>
         </div>
-        <div class="countdown-panel">
-          <div class="countdown-card">
-            <h4 class="countdown-title flicker">Próximamente</h4>
-            <p id="cdLabel" class="countdown-label">La ruleta se activa en</p>
-            <div class="cd-timer" role="timer" aria-label="Cuenta regresiva hasta la activación de la ruleta">
-              <div class="cd-unit"><span id="cdD">00</span><small>Días</small></div>
-              <div class="cd-unit"><span id="cdH">00</span><small>Horas</small></div>
-              <div class="cd-unit"><span id="cdM">00</span><small>Min</small></div>
-              <div class="cd-unit"><span id="cdS">00</span><small>Seg</small></div>
-            </div>
-          </div>
-        </div>
       </div>
 
-      <button type="button" disabled class="mt-5 bg-lime text-black font-display uppercase tracking-wider text-xl px-8 py-3 rounded-full box-lime opacity-40 cursor-not-allowed">
-        Muy pronto
+      <button type="button" id="spinWheel" class="spin-wheel-button mt-5 font-display uppercase tracking-wider text-xl px-8 py-3 rounded-full">
+        Girar ruleta
       </button>
+      <div id="wheelResult" class="wheel-result" role="status" aria-live="polite" hidden></div>
       <p class="mt-4 font-display uppercase text-xl text-neon glow-pink">31 de octubre · 8:00 PM</p>
     </article>
   </div>

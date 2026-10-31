@@ -36,7 +36,7 @@
     .category.comidas .name { color:var(--lime); }
     .dots { flex:1; min-width:.5rem; border-bottom:2px dotted rgba(255,255,255,.35); transform:translateY(-4px); }
     .price { font-family:Anton,Impact,sans-serif; font-size:1.45rem; letter-spacing:.02em; color:var(--lime); text-shadow:0 0 8px rgba(57,255,20,.55); white-space:nowrap; }
-    .description { margin:.35rem 0 0; color:rgba(255,255,255,.68); font:.9rem Oswald,sans-serif; }
+    .description { max-width:100%; margin:.35rem 0 0; color:rgba(255,255,255,.68); font:.9rem Oswald,sans-serif; line-height:1.4; overflow-wrap:anywhere; }
     /* Próximamente: etiqueta Pronto */
     .pronto-tag {
       flex:0 0 auto;

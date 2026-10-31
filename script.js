@@ -73,14 +73,28 @@
   mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => toggleMenu(false)));
 
   /* ---------- Ruleta ---------- */
-  // Cuando se definan los premios, reemplaza estos signos de pregunta por la lista real.
-  // Para reactivarla: quita .ruleta-bloqueada y el panel de cuenta regresiva, y habilita la mecánica del botón.
-  const prizes = Array(8).fill('?');
+  const prizes = [
+    'Panchita gratis', 'Pregunta incómoda',
+    'Suerte para la próxima', 'Suerte para la próxima',
+    'Pregunta incómoda',
+    'Panchita gratis', 'Pregunta incómoda',
+    'Suerte para la próxima', 'Suerte para la próxima',
+    'Pregunta incómoda'
+  ];
+  const wheelLabels = {
+    'Pregunta incómoda': 'PREGUNTA',
+    'Suerte para la próxima': 'SUERTE',
+    'Panchita gratis': 'PANCHITA'
+  };
   const wheel = document.getElementById('wheel');
   const cx = 150, cy = 150, r = 140, n = prizes.length, seg = 360 / n;
   const fills = ['#FF00FF', '#0a0a0a', '#39FF14', '#0a0a0a'];
-  const textFill = ['#000', '#FF00FF', '#000', '#39FF14'];
+  const textFill = ['#0a0a0a', '#FF00FF', '#0a0a0a', '#39FF14'];
   const NS = 'http://www.w3.org/2000/svg';
+  const spinButton = document.getElementById('spinWheel');
+  const wheelResult = document.getElementById('wheelResult');
+  let wheelRotation = 0;
+  let isSpinning = false;
 
   function polar(angleDeg, radius) {
     const a = (angleDeg - 90) * Math.PI / 180;
@@ -99,44 +113,40 @@
     const mid = a0 + seg / 2;
     const text = document.createElementNS(NS, 'text');
     text.setAttribute('x', cx);
-    text.setAttribute('y', cy - 92);
+    text.setAttribute('y', cy - 100);
     text.setAttribute('text-anchor', 'middle');
     text.setAttribute('dominant-baseline', 'central');
     text.setAttribute('font-family', 'Anton, Impact, sans-serif');
-    text.setAttribute('font-size', '40');
+    text.setAttribute('font-size', '12');
     text.setAttribute('fill', textFill[i % textFill.length]);
     text.setAttribute('transform', `rotate(${mid} ${cx} ${cy})`);
-    text.textContent = label;
+    text.textContent = wheelLabels[label];
     wheel.appendChild(text);
   });
 
-  /* ---------- Cuenta regresiva ---------- */
-  // Edita aquí la fecha del evento. El offset -05:00 fija la hora de Colombia.
-  const EVENTO = new Date('2026-10-31T20:00:00-05:00');
-  const cdLabel = document.getElementById('cdLabel');
-  const countdownInterval = { id: null };
-  const formatCountdown = value => String(value).padStart(2, '0');
+  spinButton?.addEventListener('click', () => {
+    if (isSpinning) return;
+    isSpinning = true;
+    spinButton.disabled = true;
+    spinButton.textContent = 'Girando…';
+    wheelResult.hidden = true;
 
-  function tickCountdown() {
-    const remaining = Math.max(0, EVENTO.getTime() - Date.now());
-    const days = Math.floor(remaining / 86400000);
-    const hours = Math.floor((remaining % 86400000) / 3600000);
-    const minutes = Math.floor((remaining % 3600000) / 60000);
-    const seconds = Math.floor((remaining % 60000) / 1000);
+    const winnerIndex = Math.floor(Math.random() * prizes.length);
+    const winnerCenter = (winnerIndex + 0.5) * seg;
+    const currentAngle = ((wheelRotation % 360) + 360) % 360;
+    const alignment = (360 - ((currentAngle + winnerCenter) % 360)) % 360;
+    wheelRotation += 360 * 6 + alignment;
+    wheel.style.transform = `rotate(${wheelRotation}deg)`;
 
-    document.getElementById('cdD').textContent = formatCountdown(days);
-    document.getElementById('cdH').textContent = formatCountdown(hours);
-    document.getElementById('cdM').textContent = formatCountdown(minutes);
-    document.getElementById('cdS').textContent = formatCountdown(seconds);
-
-    if (remaining === 0) {
-      cdLabel.textContent = '¡Ya empezó la fiesta!';
-      if (countdownInterval.id !== null) clearInterval(countdownInterval.id);
-    }
-  }
-
-  tickCountdown();
-  if (Date.now() < EVENTO.getTime()) countdownInterval.id = setInterval(tickCountdown, 1000);
+    const spinDuration = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 5200;
+    window.setTimeout(() => {
+      wheelResult.textContent = prizes[winnerIndex];
+      wheelResult.hidden = false;
+      spinButton.disabled = false;
+      spinButton.textContent = 'Girar de nuevo';
+      isSpinning = false;
+    }, spinDuration);
+  });
 
   // Dónde es
   const ADDRESS_TO_COPY = 'La Esquina de Abajo, Cl. 41 #46-257, Nte. Centro Histórico, Barranquilla, Atlántico';

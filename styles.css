@@ -85,19 +85,14 @@
   @media (min-width: 1024px) { .masonry { columns: 3; } }
   .masonry > * { break-inside: avoid; margin-bottom: 1rem; }
 
-  /* ---------- Ruleta bloqueada ---------- */
-  @keyframes wheelIdle { to { transform: rotate(360deg); } }
-  #wheel { animation: wheelIdle 40s linear infinite; transform-origin: 150px 150px; }
+  /* ---------- Ruleta ---------- */
+  #wheel { transform-box:view-box; transform-origin:150px 150px; transition:transform 5.2s cubic-bezier(.12,.75,.12,1); }
   .ruleta-stage { position:relative; width:min(100%, 300px); margin-inline:auto; }
-  .ruleta-bloqueada { position:relative; filter:blur(2.5px) saturate(.35) brightness(.6); pointer-events:none; user-select:none; }
-  .countdown-panel { position:absolute; inset:0; z-index:20; display:flex; align-items:center; justify-content:center; }
-  .countdown-card { width:94%; padding:.9rem .7rem 1rem; border:2px solid #FF00FF; border-radius:1rem; background:rgba(10,10,10,.8); backdrop-filter:blur(8px); box-shadow:0 0 14px rgba(255,0,255,.75), inset 0 0 14px rgba(255,0,255,.2); }
-  .countdown-title { margin:0; color:#FF00FF; font:clamp(1.7rem, 8vw, 2.25rem)/1.05 'Pirata One', Impact, sans-serif; text-shadow:0 0 6px #FF00FF, 0 0 18px #D900FF; }
-  .countdown-label { margin:.5rem 0 .65rem; color:rgba(255,255,255,.6); font:.68rem Oswald, Arial, sans-serif; letter-spacing:.1em; text-transform:uppercase; }
-  .cd-timer { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:.35rem; }
-  .cd-unit { display:flex; flex-direction:column; align-items:center; gap:.05rem; min-width:0; }
-  .cd-unit span { color:#39FF14; font:clamp(1.35rem, 6vw, 1.8rem)/1 Anton, Impact, sans-serif; text-shadow:0 0 7px #39FF14, 0 0 16px rgba(57,255,20,.8); font-variant-numeric:tabular-nums; }
-  .cd-unit small { color:rgba(255,255,255,.75); font: .58rem Oswald, Arial, sans-serif; letter-spacing:.08em; text-transform:uppercase; }
+  .spin-wheel-button { border:2px solid #39FF14; background:#39FF14; color:#080808; box-shadow:0 0 14px rgba(57,255,20,.42); transition:transform .2s,box-shadow .2s,background .2s; }
+  .spin-wheel-button:hover:not(:disabled) { transform:translateY(-2px) scale(1.03); background:#a8ff91; box-shadow:0 0 24px rgba(57,255,20,.75); }
+  .spin-wheel-button:disabled { cursor:wait; opacity:.72; }
+  .wheel-result { display:flex; align-items:center; justify-content:center; width:100%; min-height:4.25rem; margin-top:1.25rem; padding:.7rem 1rem; border:2px solid #FF00FF; border-radius:.75rem; background:linear-gradient(100deg,rgba(255,0,255,.17),rgba(57,255,20,.12)); color:#39FF14; font:clamp(1.5rem,6vw,2rem)/1.15 Anton,Impact,sans-serif; letter-spacing:.04em; text-align:center; text-transform:uppercase; text-shadow:0 0 10px rgba(57,255,20,.55); box-shadow:0 0 16px rgba(255,0,255,.32),inset 0 0 12px rgba(255,0,255,.12); }
+  .wheel-result[hidden] { display:none; }
 
   /* ---------- Playlist ---------- */
   @keyframes eq { 0%,100% { transform: scaleY(.25); } 50% { transform: scaleY(1); } }
