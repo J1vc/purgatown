@@ -3,7 +3,7 @@
     const carta = [
       { id:'bebidas', titulo:'Bebidas', color:'bebidas', grupos:[
         { titulo:'Cervezas', items:[
-          { n:'Costeña Chevere', d:'', p:'$8.000' },
+          { n:'Costeña Bacana', d:'', p:'$8.000' },
           { n:'Aguila Negra', d:'', p: '$8.000' },
           { n:'Coronita', d:'', p: '$10.000' },
           { n:'Cubetazo Costeña Chevere', d:'6 botellas Costeña Chevere en cubeta con hielo', p:'$40.000' },
